@@ -18,6 +18,7 @@
   .vol{font-family:"Cormorant Garamond",Garamond,Georgia,serif;font-size:15px;letter-spacing:2px;opacity:.8}
   h1{margin:0;font-weight:700;font-size:clamp(24px,3.4vw,44px);line-height:1.1;align-self:flex-start;padding-bottom:8px;border-bottom:2px solid var(--rule)}
   .desc{margin:0;font-size:clamp(13px,1.2vw,15px);line-height:1.55;opacity:.8;max-width:560px}
+  .desc.just{text-align:justify;-webkit-hyphens:auto;hyphens:auto}
   .tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
   .tags span{font-size:12px;padding:5px 10px;background:var(--tag);border:1px solid var(--tagb);border-radius:2px}
   .viz{position:relative;border:1px solid var(--box);border-radius:6px;overflow:hidden;background:var(--boxbg);min-height:150px}
@@ -73,13 +74,13 @@
     erec:{vol:'Vol. V',t:'Recursos electrónicos',d:'Mide la cantidad de accesos registrados a través del proxy a los recursos electrónicos suscritos.',tags:['Accesos a bases','Revistas electrónicas','Ebooks']},
     marbetes:{vol:'Vol. VI',t:'Creador de Marbetes',d:'Herramienta para generar los marbetes de la colección a partir de los datos de cada ejemplar.',tags:['Signatura topográfica','Impresión de marbetes']},
     marc:{vol:'Vol. VII',t:'Registros MARC',d:'Detalle de los registros MARC en Folio, para revisar la calidad y consistencia de la catalogación.',tags:['Campos fijos y variables','Posición LDR','Indicadores']},
-    auto:{vol:'Vol. VIII',t:'Automatización',d:'Procesos automatizados que llevan datos y reportes a las distintas áreas y bibliotecas.',tags:['Bibliotecas','Dirección','Procesamiento y Metadatos','Difusión','Informática']}
+    auto:{vol:'Vol. VIII',t:'Power Apps · BUAI',d:'App de Bibliotecas UAI para el trabajo diario en PC y celular: 7 módulos con datos de FOLIO, Power BI y SharePoint.',tags:['Bibliotecas','Dirección','Procesamiento y Metadatos','Difusión','Informática']}
   };
   var Q=new URLSearchParams(location.search),TEMA=(Q.get('tema')||window.TEMA_DEFECTO||'blanco').toLowerCase(),CLARO=TEMA==='blanco';
   if(CLARO)document.body.classList.add('claro');
   var k=(Q.get('area')||'servicios').toLowerCase();if(!AREAS[k])k='servicios';
   var a=AREAS[k];
-  document.getElementById('vol').textContent=a.vol;document.getElementById('tit').textContent=a.t;document.getElementById('desc').textContent=a.d;
+  document.getElementById('vol').textContent=a.vol;document.getElementById('tit').textContent=a.t;document.getElementById('desc').textContent=a.d;if(k==='auto')document.getElementById('desc').classList.add('just');
   document.title=a.t+' · Bibliotecas UAI';
   var tg=document.getElementById('tags');a.tags.forEach(function(s){var e=document.createElement('span');e.textContent=s;tg.appendChild(e)});
   var st={};
@@ -175,7 +176,7 @@
       R.forEach(function(r,i){var y=y0+i*dy+dy*.6;if(i===sel){x.fillStyle=A(.08);x.fillRect(w*.1,y-dy*.7,w*.8,dy*.9)}
         x.fillStyle=A(i===sel?.95:.4);x.fillText(r[0],w*.14,y);x.fillStyle=A(i===sel?.8:.25);x.fillText(r[1],w*.3,y)});
     },
-    /* VIII · Automatización: un sistema solar; los procesos automáticos llegan a cada área */
+    /* VIII · Power Apps · BUAI: un sistema solar; al centro la app en PC y celular, que llega a cada área */
     auto:function(x,w,h,t){
       var s=Math.min(w*.72,h*1.2),cx=w*.5,cy=h/2;
       var AR=[['Biblioteca A',0],['Biblioteca F',1],['Biblioteca Viña del Mar',2],['Biblioteca Posgrado',0],['Dirección',1],['Adquisiciones',2],['Analista',1],['Procesamiento y Metadatos',2],['Difusión',0],['Informática',1]];
@@ -185,10 +186,26 @@
       AR.forEach(function(a){var o=a[1],i=cnt[o]++,sp=[.22,-.15,.1][o],an=t*sp+i*(6.283/tot[o])+o*.7;
         P.push({x:cx+Math.cos(an)*orb[o]*s,y:cy+Math.sin(an)*orb[o]*s*tilt,d:Math.sin(an),n:a[0]})});
       P.forEach(function(p,i){var k=((t*.3)+i*.37)%1;line(x,cx,cy,p.x,p.y,.07,1);dot(x,cx+(p.x-cx)*k,cy+(p.y-cy)*k,s*.006,.7*Math.sin(k*Math.PI))});
-      var g=x.createRadialGradient(cx,cy,0,cx,cy,s*.11);g.addColorStop(0,A(.5));g.addColorStop(.4,A(.15));g.addColorStop(1,A(0));x.fillStyle=g;x.beginPath();x.arc(cx,cy,s*.11,0,7);x.fill();
-      dot(x,cx,cy,s*.03,.95);
-      P.sort(function(a,b){return a.d-b.d}).forEach(function(p){var dep=.35+.65*(p.d+1)/2;dot(x,p.x,p.y,s*.012*(.7+.5*dep),.4+.6*dep);
-        x.font='600 '+Math.max(10,Math.round(s*.026))+'px "Segoe UI",sans-serif';x.textAlign='center';var la=Math.max(0,Math.min(1,(p.d+.15)/.5));if(la>0){x.fillStyle=A(.95*la);x.fillText(p.n,p.x,p.y-s*.03)};x.textAlign='left'});
+      var g=x.createRadialGradient(cx,cy,0,cx,cy,s*.17);g.addColorStop(0,A(.32));g.addColorStop(.45,A(.1));g.addColorStop(1,A(0));x.fillStyle=g;x.beginPath();x.arc(cx,cy,s*.17,0,7);x.fill();
+      function planeta(p){var dep=.35+.65*(p.d+1)/2;dot(x,p.x,p.y,s*.012*(.7+.5*dep),.4+.6*dep);
+        x.font='600 '+Math.max(10,Math.round(s*.026))+'px "Segoe UI",sans-serif';x.textAlign='center';var la=Math.max(0,Math.min(1,(p.d+.15)/.5));if(la>0){x.fillStyle=A(.95*la);x.fillText(p.n,p.x,p.y-s*.03)};x.textAlign='left'}
+      P.sort(function(a,b){return a.d-b.d});
+      P.forEach(function(p){if(p.d<0)planeta(p)});
+      /* Al centro, la BUAI App: computador (pistola USB) y celular (cámara) */
+      var mw=s*.24,mh=s*.15,mx=cx-s*.04-mw/2,my=cy-s*.03-mh/2,m=s*.009,sel=Math.floor(t*.8)%7;
+      x.clearRect(mx,my,mw,mh);x.strokeStyle=A(.85);x.lineWidth=1.2;x.strokeRect(mx+.5,my+.5,mw,mh);
+      x.fillStyle=A(.55);x.fillRect(mx+m,my+m,mw-2*m,mh*.13);
+      var gw=(mw-5*m)/4,gh=(mh*.7-3*m)/2;
+      for(var i=0;i<7;i++){x.fillStyle=A(i===sel?.5:.14);x.fillRect(mx+m+(i%4)*(gw+m),my+mh*.13+2*m+Math.floor(i/4)*(gh+m),gw,gh)}
+      line(x,mx+mw/2,my+mh,mx+mw/2,my+mh+s*.035,.7,1.2);line(x,mx+mw/2-s*.05,my+mh+s*.035,mx+mw/2+s*.05,my+mh+s*.035,.7,1.2);
+      var pw=s*.07,ph=s*.13,px=cx+s*.1-pw/2,py=cy+s*.03-ph/2;
+      x.clearRect(px,py,pw,ph);x.strokeStyle=A(.85);x.lineWidth=1.2;x.strokeRect(px+.5,py+.5,pw,ph);
+      line(x,px+pw*.38,py+m*.9,px+pw*.62,py+m*.9,.7,1.2);
+      x.fillStyle=A(.55);x.fillRect(px+m*.8,py+m*1.8,pw-1.6*m,ph*.1);
+      var qw=(pw-2.4*m)/2,qh=(ph*.62-1.8*m)/4;
+      for(var j=0;j<7;j++){x.fillStyle=A(j===sel?.5:.14);x.fillRect(px+m*.8+(j%2)*(qw+m*.8),py+ph*.24+Math.floor(j/2)*(qh+m*.6),qw,qh)}
+      var sy=py+ph*.24+ph*.62*(.5+.5*Math.sin(t*2.4));line(x,px+m*.5,sy,px+pw-m*.5,sy,.8,1.2);
+      P.forEach(function(p){if(p.d>=0)planeta(p)});
     },
   };
 
