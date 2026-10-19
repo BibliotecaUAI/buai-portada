@@ -63,6 +63,9 @@
   body.claro .cols{border-top-color:#111}body.claro .cols div{border-right-color:#d6d6d6}
   .tags span{padding:4px 10px!important;font-size:11.5px}
   .desc,.desc.just{text-align:justify;-webkit-hyphens:manual;hyphens:manual}
+  /* Vol. VIII: escala proporcional (base 1100 px); el alto lo da el contenido */
+  body.escala .mid{flex:none}body.escala .p{justify-content:flex-start}
+  body.escala .p{padding:24px 16px;gap:16px}body.escala .mast{font-size:13px}body.escala h1{font-size:37px}body.escala .desc{font-size:13.5px}body.escala .mid{gap:34px}
 </style>
 </head>
 <body>
@@ -100,7 +103,7 @@
   if(CLARO)document.body.classList.add('claro');
   var k=(Q.get('area')||'servicios').toLowerCase();if(!AREAS[k])k='servicios';
   var a=AREAS[k];
-  document.getElementById('vol').textContent=a.vol;document.getElementById('tit').textContent=a.t;document.getElementById('desc').textContent=a.d;if(k==='auto'){document.getElementById('desc').classList.add('just');document.body.classList.add('ancho-fijo');document.querySelector('.cols').style.display='none'}
+  document.getElementById('vol').textContent=a.vol;document.getElementById('tit').textContent=a.t;document.getElementById('desc').textContent=a.d;if(k==='auto'){document.getElementById('desc').classList.add('just');document.body.classList.add('escala');(function(){var B=1100;function f(){document.documentElement.style.zoom=(window.innerWidth/B).toFixed(4)}f();window.addEventListener('resize',f)})();document.querySelector('.cols').style.display='none'}
   document.title=a.t+' · Bibliotecas UAI';
   var tg=document.getElementById('tags');a.tags.forEach(function(s){var e=document.createElement('span');e.textContent=s;tg.appendChild(e)});
   var st={};
