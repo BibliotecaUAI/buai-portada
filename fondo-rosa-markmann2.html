@@ -32,6 +32,24 @@
   .cta:hover{background:#3a3a3a}
   .cta span{transition:transform .25s}.cta:hover span{transform:translateX(4px)}
   @media (max-width:760px){.g{grid-template-columns:1fr 1fr;row-gap:12px}.s{border-right:none}.mast span:last-child{display:none}}
+
+  /* ===== Paleta BUAI · tinta (boceto) ===== */
+  html,body{background:#fff;color:#1c1c1c}
+  .mast,.head{border-top:3px double #111!important;border-bottom:1px solid #111!important}
+  @keyframes tinta{0%{background-position:110% 0}60%,100%{background-position:-10% 0}}
+  .line{background:linear-gradient(90deg,transparent,#111 20%,#8a8a8a 50%,#111 80%,transparent)!important;height:1.5px}
+  .line::after{background:radial-gradient(ellipse at center,#fff 0%,rgba(255,255,255,.85) 35%,rgba(255,255,255,0) 70%)!important;box-shadow:0 0 8px 2px rgba(255,255,255,.7)!important}
+  .mast span:last-child,.mast a,.head span:last-child{color:#111!important;opacity:.85!important}
+  .kick,.vol{color:#111!important;opacity:1!important}
+  .sub,#q{color:#111!important}
+  .h{color:#111!important}.h::after{background:linear-gradient(90deg,#111,transparent)!important}
+  .s,.c,.st,.cols div{border-right-color:#9a9a9a!important}
+  .tags span{background:#fff!important;border:1px solid #cfcfcf!important;border-radius:999px!important;padding:5px 12px!important;color:#1c1c1c}
+
+  h1 .t{background:linear-gradient(100deg,#111 0%,#111 44%,#2a2a2a 48%,#6a6a6a 50%,#2a2a2a 52%,#111 56%,#111 100%);background-size:260% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:tinta 7s ease-in-out infinite}
+  .n{background:linear-gradient(180deg,#111,#111);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .g{border-top:1px solid #111}
+  .note{background:#fafafa;border-color:#e3e3e3}
 </style>
 </head>
 <body>
