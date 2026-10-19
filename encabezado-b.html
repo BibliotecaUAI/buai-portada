@@ -43,6 +43,25 @@
   body.claro .cols{border-top-color:#9a9a9a}
   body.claro .cols div{border-right-color:#cfcfcf}
 
+
+  /* ===== Paleta BUAI · tinta (boceto) ===== */
+  html,body{background:#fff;color:#1c1c1c}
+  .mast,.head{border-top:3px double #111!important;border-bottom:1px solid #111!important}
+  @keyframes tinta{0%{background-position:110% 0}60%,100%{background-position:-10% 0}}
+  .line{background:linear-gradient(90deg,transparent,#111 20%,#8a8a8a 50%,#111 80%,transparent)!important;height:1.5px}
+  .line::after{background:radial-gradient(ellipse at center,#fff 0%,rgba(255,255,255,.85) 35%,rgba(255,255,255,0) 70%)!important;box-shadow:0 0 8px 2px rgba(255,255,255,.7)!important}
+  .mast span:last-child,.mast a,.head span:last-child{color:#111!important;opacity:.85!important}
+  .kick,.vol{color:#111!important;opacity:1!important}
+  .sub,#q{color:#111!important}
+  .h{color:#111!important}.h::after{background:linear-gradient(90deg,#111,transparent)!important}
+  .s,.c,.st,.cols div{border-right-color:#9a9a9a!important}
+  .tags span{background:#fff!important;border:1px solid #cfcfcf!important;border-radius:999px!important;padding:5px 12px!important;color:#1c1c1c}
+
+  body.claro h1{background:linear-gradient(100deg,#111 0%,#111 44%,#2a2a2a 48%,#6a6a6a 50%,#2a2a2a 52%,#111 56%,#111 100%);background-size:260% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:tinta 7s ease-in-out infinite;border-bottom-color:#111}
+  .viz{min-height:170px}
+  body.claro .viz{border:none;border-radius:0;background:none;box-shadow:none}
+  body.claro .cols{border-top-color:#111}body.claro .cols div{border-right-color:#d6d6d6}
+  .tags span{padding:4px 10px!important;font-size:11.5px}
 </style>
 </head>
 <body>
@@ -113,7 +132,7 @@
     },
     /* II · Investigación: mapa de neuronas con impulsos */
     adi:function(x,w,h,t){
-      var s=st.adi;if(!s){s=st.adi={n:[],e:[]};for(var i=0;i<22;i++)s.n.push({x:Math.random(),y:Math.random(),p:Math.random()*6});
+      var s=st.adi;if(!s){s=st.adi={n:[],e:[]};for(var i=0;i<22;i++)s.n.push({x:.05+Math.random()*.9,y:.08+Math.random()*.84,p:Math.random()*6});
         for(var a=0;a<22;a++)for(var b=a+1;b<22;b++){var dx=s.n[a].x-s.n[b].x,dy=s.n[a].y-s.n[b].y;if(dx*dx+dy*dy<.07)s.e.push([a,b,Math.random()])}}
       s.e.forEach(function(e){var A1=s.n[e[0]],B1=s.n[e[1]];line(x,A1.x*w,A1.y*h,B1.x*w,B1.y*h,.13,.8);
         var k=(t*.25+e[2])%1;dot(x,(A1.x+(B1.x-A1.x)*k)*w,(A1.y+(B1.y-A1.y)*k)*h,1.5,.75)});
@@ -176,44 +195,59 @@
       R.forEach(function(r,i){var y=y0+i*dy+dy*.6;if(i===sel){x.fillStyle=A(.08);x.fillRect(w*.1,y-dy*.7,w*.8,dy*.9)}
         x.fillStyle=A(i===sel?.95:.4);x.fillText(r[0],w*.14,y);x.fillStyle=A(i===sel?.8:.25);x.fillText(r[1],w*.3,y)});
     },
-    /* VIII · Power Apps · BUAI: un sistema solar; al centro la app en PC y celular, que llega a cada área */
+    /* VIII · Power Apps: la estantería de la app; cada módulo sale del estante y suma un registro.
+       Ventana ancha: los 7 lomos. Ventana angosta (lomo del estante): carrusel de 3 lomos. */
     auto:function(x,w,h,t){
-      var s=Math.min(w*.72,h*1.2),cx=w*.5,cy=h/2;
-      var AR=[['Biblioteca A',0],['Biblioteca F',1],['Biblioteca Viña del Mar',2],['Biblioteca Posgrado',0],['Dirección',1],['Adquisiciones',2],['Analista',1],['Procesamiento y Metadatos',2],['Difusión',0],['Informática',1]];
-      var orb=[.2,.33,.46],tilt=.72,P=[];
-      orb.forEach(function(o){x.strokeStyle=A(.13);x.lineWidth=1;x.beginPath();x.ellipse(cx,cy,o*s,o*s*tilt,0,0,7);x.stroke()});
-      var cnt=[0,0,0],tot=[0,0,0];AR.forEach(function(a){tot[a[1]]++});
-      AR.forEach(function(a){var o=a[1],i=cnt[o]++,sp=[.22,-.15,.1][o],an=t*sp+i*(6.283/tot[o])+o*.7;
-        P.push({x:cx+Math.cos(an)*orb[o]*s,y:cy+Math.sin(an)*orb[o]*s*tilt,d:Math.sin(an),n:a[0]})});
-      P.forEach(function(p,i){var k=((t*.3)+i*.37)%1;line(x,cx,cy,p.x,p.y,.07,1);dot(x,cx+(p.x-cx)*k,cy+(p.y-cy)*k,s*.006,.7*Math.sin(k*Math.PI))});
-      var g=x.createRadialGradient(cx,cy,0,cx,cy,s*.17);g.addColorStop(0,A(.32));g.addColorStop(.45,A(.1));g.addColorStop(1,A(0));x.fillStyle=g;x.beginPath();x.arc(cx,cy,s*.17,0,7);x.fill();
-      function planeta(p){var dep=.35+.65*(p.d+1)/2;dot(x,p.x,p.y,s*.012*(.7+.5*dep),.4+.6*dep);
-        x.font='600 '+Math.max(10,Math.round(s*.026))+'px "Segoe UI",sans-serif';x.textAlign='center';var la=Math.max(0,Math.min(1,(p.d+.15)/.5));if(la>0){x.fillStyle=A(.95*la);x.fillText(p.n,p.x,p.y-s*.03)};x.textAlign='left'}
-      P.sort(function(a,b){return a.d-b.d});
-      P.forEach(function(p){if(p.d<0)planeta(p)});
-      /* Al centro, la BUAI App: computador (pistola USB) y celular (cámara) */
-      var mw=s*.24,mh=s*.15,mx=cx-s*.04-mw/2,my=cy-s*.03-mh/2,m=s*.009,sel=Math.floor(t*.8)%7;
-      x.clearRect(mx,my,mw,mh);x.strokeStyle=A(.85);x.lineWidth=1.2;x.strokeRect(mx+.5,my+.5,mw,mh);
-      x.fillStyle=A(.55);x.fillRect(mx+m,my+m,mw-2*m,mh*.13);
-      var gw=(mw-5*m)/4,gh=(mh*.7-3*m)/2;
-      for(var i=0;i<7;i++){x.fillStyle=A(i===sel?.5:.14);x.fillRect(mx+m+(i%4)*(gw+m),my+mh*.13+2*m+Math.floor(i/4)*(gh+m),gw,gh)}
-      line(x,mx+mw/2,my+mh,mx+mw/2,my+mh+s*.035,.7,1.2);line(x,mx+mw/2-s*.05,my+mh+s*.035,mx+mw/2+s*.05,my+mh+s*.035,.7,1.2);
-      var pw=s*.07,ph=s*.13,px=cx+s*.1-pw/2,py=cy+s*.03-ph/2;
-      x.clearRect(px,py,pw,ph);x.strokeStyle=A(.85);x.lineWidth=1.2;x.strokeRect(px+.5,py+.5,pw,ph);
-      line(x,px+pw*.38,py+m*.9,px+pw*.62,py+m*.9,.7,1.2);
-      x.fillStyle=A(.55);x.fillRect(px+m*.8,py+m*1.8,pw-1.6*m,ph*.1);
-      var qw=(pw-2.4*m)/2,qh=(ph*.62-1.8*m)/4;
-      for(var j=0;j<7;j++){x.fillStyle=A(j===sel?.5:.14);x.fillRect(px+m*.8+(j%2)*(qw+m*.8),py+ph*.24+Math.floor(j/2)*(qh+m*.6),qw,qh)}
-      var sy=py+ph*.24+ph*.62*(.5+.5*Math.sin(t*2.4));line(x,px+m*.5,sy,px+pw-m*.5,sy,.8,1.2);
-      P.forEach(function(p){if(p.d>=0)planeta(p)});
+      x._own=1;
+      var M=[['I','CONTADOR',128],['II','INGRESOS',4],['III','MARBETES',36],['IV','MOROSOS',12],['V','DESCARTE',2],['VI','PRÉSTAMOS',57],['VII','INVENTARIO',940]];
+      var P=2.6,cyc=t/P,act=Math.floor(cyc)%7,p=cyc%1,narrow=h>w*1.1||w<420;
+      function rr(x0,y0,ww,hh,r){x.beginPath();x.moveTo(x0+r,y0);x.arcTo(x0+ww,y0,x0+ww,y0+hh,r);x.arcTo(x0+ww,y0+hh,x0,y0+hh,r);x.arcTo(x0,y0+hh,x0,y0,r);x.arcTo(x0,y0,x0+ww,y0,r);x.closePath()}
+      function spine(i,bx,by,bw,bh,on,al){
+        x.save();x.globalAlpha=al;
+        var g=x.createLinearGradient(bx,0,bx+bw,0);g.addColorStop(0,'#050505');g.addColorStop(.45,on?'#3a3a3d':'#2a2a2d');g.addColorStop(1,'#080808');
+        x.save();if(on){x.shadowColor='rgba(0,0,0,.35)';x.shadowBlur=14;x.shadowOffsetY=6}rr(bx,by,bw,bh,bw*.1);x.fillStyle=g;x.fill();x.restore();
+        x.strokeStyle='rgba(200,200,200,.55)';x.lineWidth=1;
+        [bh*.07,bh*.085,bh*.93,bh*.915].forEach(function(o){x.beginPath();x.moveTo(bx+bw*.14,by+o);x.lineTo(bx+bw*.86,by+o);x.stroke()});
+        x.fillStyle='#fff';x.textAlign='center';
+        x.font='600 '+Math.round(bw*.36)+'px "Cormorant Garamond",Georgia,serif';x.fillText(M[i][0],bx+bw/2,by+bh*.2);
+        x.save();x.translate(bx+bw/2,by+bh*.55);x.rotate(-Math.PI/2);
+        x.font='700 '+Math.max(6,Math.round(bw*.19))+'px "Open Sans","Segoe UI",sans-serif';
+        if('letterSpacing' in x)x.letterSpacing=Math.round(bw*.06)+'px';
+        x.fillText(M[i][1],0,bw*.07);x.restore();if('letterSpacing' in x)x.letterSpacing='0px';
+        var n=M[i][2]+(cyc>=i+.5?Math.floor((cyc-i-.5)/7)+1:0);
+        x.font='700 '+Math.round(bw*.3)+'px "Open Sans","Segoe UI",sans-serif';x.fillText(n,bx+bw/2,by+bh*.86);
+        if(on){x.save();rr(bx,by,bw,bh,bw*.1);x.clip();var gx=bx-bw+p*bw*3,gl=x.createLinearGradient(gx,0,gx+bw*.8,0);
+          gl.addColorStop(0,'rgba(255,255,255,0)');gl.addColorStop(.5,'rgba(255,255,255,.18)');gl.addColorStop(1,'rgba(255,255,255,0)');x.fillStyle=gl;x.fillRect(bx,by,bw,bh);x.restore();
+          if(p>.5&&p<.9){var k=(p-.5)/.4;x.fillStyle='rgba(255,255,255,'+(1-k)+')';x.font='700 '+Math.round(bw*.24)+'px "Open Sans","Segoe UI",sans-serif';x.fillText('+1',bx+bw/2,by+bh*(.76-k*.06))}}
+        x.textAlign='left';x.restore();
+      }
+      function shelf(x0,base,len){var sg=x.createLinearGradient(0,base,0,base+7);sg.addColorStop(0,'#e4e4e6');sg.addColorStop(1,'#f6f6f7');
+        x.fillStyle=sg;x.fillRect(x0,base,len,6);x.fillStyle='rgba(0,0,0,.10)';x.fillRect(x0,base+6,len,1.5)}
+      /* nombre del módulo activo */
+      var fa=Math.sin(Math.min(1,p/.15)*Math.PI/2)*(p>.85?(1-p)/.15:1),top=h*.18;
+      x.font='700 '+Math.max(10,Math.round(Math.min(w,h)*(narrow?.07:.045)))+'px "Open Sans","Segoe UI",sans-serif';x.textAlign='center';
+      x.fillStyle='rgba(17,17,17,'+fa+')';x.fillText(M[act][0]+' · '+M[act][1],w/2,top-Math.min(w,h)*.05);x.textAlign='left';
+      if(narrow){
+        var bw=Math.min(w*.3,h*.7/4.4),bh=bw*4.4,gap=bw*.3,base=top+bh+bh*.08,cx=w/2-bw/2;
+        shelf(0,base,w);
+        var s=p<.22?1-Math.pow(1-p/.22,3):1;          /* desliza un puesto hacia la izquierda */
+        for(var k=-2;k<=2;k++){var i=(act+k+7)%7,pos=k+1-s,bx=cx+pos*(bw+gap),on=k===0,
+          lift=on?bh*.06*(p<.2?p/.2:p>.8?(1-p)/.2:1):0,al=Math.max(0,1-Math.max(0,Math.abs(pos)-1)*1.2)*(Math.abs(pos)<.5?1:.75);
+          if(al>0)spine(i,bx,base-bh-lift,bw,bh,on&&s>=1,al)}
+        return;
+      }
+      var bw=Math.min(w*.86/8.2,h*.7/4.4),bh=bw*4.4,gap=bw*.2,tot=7*bw+6*gap,x0=(w-tot)/2,base=top+bh+bh*.08;
+      shelf(x0-bw*.3,base,tot+bw*.6);
+      for(var i=0;i<7;i++){var on=i===act,lift=on?bh*.06*(p<.2?p/.2:p>.8?(1-p)/.2:1):0;spine(i,x0+i*(bw+gap),base-bh-lift,bw,bh,on,1)}
     },
+
   };
 
 
   /* --- efectos plateados --- */
   function silverSheen(x,w,h,t){x.save();x.globalCompositeOperation='source-atop';
     var p=((t*.11)%1.7)-.35,g=x.createLinearGradient(w*(p-.4),0,w*(p+.4),h*.6);
-    g.addColorStop(0,'#555');g.addColorStop(.4,'#8c8c8c');g.addColorStop(.5,'#f2f2f2');g.addColorStop(.6,'#8c8c8c');g.addColorStop(1,'#555');
+    g.addColorStop(0,'#111');g.addColorStop(.4,'#1c1c1c');g.addColorStop(.5,'#5a5a5a');g.addColorStop(.6,'#1c1c1c');g.addColorStop(1,'#111');
     x.fillStyle=g;x.fillRect(0,0,w,h);x.restore()}
   function sparkle(x,cx,cy,r,a){x.save();x.globalAlpha=Math.max(0,a);
     var g=x.createRadialGradient(cx,cy,0,cx,cy,r*1.8);g.addColorStop(0,'rgba(255,255,255,1)');g.addColorStop(.35,'rgba(170,170,170,.55)');g.addColorStop(1,'rgba(170,170,170,0)');

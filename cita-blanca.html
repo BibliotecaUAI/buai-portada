@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,300&family=Open+Sans:wght@400;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,300;1,500&family=Open+Sans:wght@400;700&display=swap">
 <title>Cita BUAI</title>
 <style>
   html,body{margin:0;height:100%;overflow:hidden;background:#000;color:#fff}
@@ -30,6 +30,21 @@
   .line::after{background:radial-gradient(ellipse at center,#fff 0%,rgba(200,200,200,.8) 35%,rgba(200,200,200,0) 70%);box-shadow:0 0 10px 3px rgba(150,150,150,.35)}
   #q{color:#4a4a4a}
 
+
+  /* ===== Paleta BUAI · tinta (boceto) ===== */
+  html,body{background:#fff;color:#1c1c1c}
+  .mast,.head{border-top:3px double #111!important;border-bottom:1px solid #111!important}
+  @keyframes tinta{0%{background-position:110% 0}60%,100%{background-position:-10% 0}}
+  .line{background:linear-gradient(90deg,transparent,#111 20%,#8a8a8a 50%,#111 80%,transparent)!important;height:1.5px}
+  .line::after{background:radial-gradient(ellipse at center,#fff 0%,rgba(255,255,255,.85) 35%,rgba(255,255,255,0) 70%)!important;box-shadow:0 0 8px 2px rgba(255,255,255,.7)!important}
+  .mast span:last-child,.mast a,.head span:last-child{color:#111!important;opacity:.85!important}
+  .kick,.vol{color:#111!important;opacity:1!important}
+  .sub,#q{color:#111!important}
+  .h{color:#111!important}.h::after{background:linear-gradient(90deg,#111,transparent)!important}
+  .s,.c,.st,.cols div{border-right-color:#9a9a9a!important}
+  .tags span{background:#fff!important;border:1px solid #cfcfcf!important;border-radius:999px!important;padding:5px 12px!important;color:#1c1c1c}
+
+  #q{color:#111;font-weight:500}
 </style>
 </head>
 <body>
@@ -38,7 +53,7 @@
   <p id="q">“Cada préstamo es una pregunta que alguien quiso responder…”</p>
   <!-- Pluma antigua -->
   <svg id="pen" viewBox="0 0 100 100" aria-hidden="true" style="filter:drop-shadow(0 1px 1px rgba(0,0,0,.25))">
-    <defs><linearGradient id="g" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#7a7a7a"/><stop offset=".5" stop-color="#e9e9e9"/><stop offset="1" stop-color="#8f8f8f"/></linearGradient></defs>
+    <defs><linearGradient id="g" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#1c1c1c"/><stop offset=".5" stop-color="#8a8a8a"/><stop offset="1" stop-color="#2a2a2a"/></linearGradient></defs>
     <path d="M6 96 L22 74" stroke="#555" stroke-width="2.2" stroke-linecap="round"/>
     <path d="M20 77 C30 52 52 22 94 4 C80 26 66 44 46 58 C56 52 66 50 74 46 C60 62 42 72 22 76 Z" fill="url(#g)" opacity=".95"/>
     <path d="M22 76 C44 54 66 30 92 6" stroke="#5a5a5a" stroke-width="1" fill="none" opacity=".7"/>

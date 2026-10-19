@@ -17,7 +17,24 @@
   .s small{font-size:12.5px;line-height:1.5;color:#555}
   .s::before{content:"";position:absolute;top:0;left:clamp(10px,1.4vw,18px);width:36px;height:1.5px;background:linear-gradient(90deg,#9a9a9a,#e8e8e8,#9a9a9a)}
   @media (max-width:760px){.g{grid-template-columns:1fr 1fr;row-gap:14px}.s{border-right:none}.mast span{display:none}}
+
+  /* ===== Paleta BUAI · tinta (boceto) ===== */
+  html,body{background:#fff;color:#1c1c1c}
+  .mast,.head{border-top:3px double #111!important;border-bottom:1px solid #111!important}
+  @keyframes tinta{0%{background-position:110% 0}60%,100%{background-position:-10% 0}}
+  .line{background:linear-gradient(90deg,transparent,#111 20%,#8a8a8a 50%,#111 80%,transparent)!important;height:1.5px}
+  .line::after{background:radial-gradient(ellipse at center,#fff 0%,rgba(255,255,255,.85) 35%,rgba(255,255,255,0) 70%)!important;box-shadow:0 0 8px 2px rgba(255,255,255,.7)!important}
+  .mast span:last-child,.mast a,.head span:last-child{color:#111!important;opacity:.85!important}
+  .kick,.vol{color:#111!important;opacity:1!important}
+  .sub,#q{color:#111!important}
+  .h{color:#111!important}.h::after{background:linear-gradient(90deg,#111,transparent)!important}
+  .s,.c,.st,.cols div{border-right-color:#9a9a9a!important}
+  .tags span{background:#fff!important;border:1px solid #cfcfcf!important;border-radius:999px!important;padding:5px 12px!important;color:#1c1c1c}
+
+  .mast b{background:linear-gradient(100deg,#111 0%,#111 44%,#2a2a2a 48%,#6a6a6a 50%,#2a2a2a 52%,#111 56%,#111 100%);background-size:260% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:tinta 7s ease-in-out infinite}
+  .n{background:linear-gradient(180deg,#111,#111);-webkit-background-clip:text;background-clip:text;color:transparent;font-family:"Segoe UI","Selawik","Open Sans",system-ui,sans-serif;font-weight:700;font-size:clamp(22px,2.4vw,30px);letter-spacing:-.5px}
+  .s::before{background:#111!important}
 </style></head><body><div class="p">
-  <div class="mast"><b>Cómo leer este dashboard</b><span>Guía rápida para navegar los reportes</span></div>
+  <div class="mast"><b>Cómo leer esta página</b><span>Guía rápida para navegar los reportes</span></div>
   <div class="g"><div class="s"><span class="n">01</span><b>Navega como en una web</b><small>Es un dashboard semi-interactivo: avanzas entre opciones igual que en una página web.</small></div><div class="s"><span class="n">02</span><b>Explora las cápsulas</b><small>Las cápsulas de opciones te llevan a distintas métricas y formas de mostrar los datos.</small></div><div class="s"><span class="n">03</span><b>Elige el visual</b><small>Selecciona distintos tipos de visuales para obtener tablas que puedes ampliar o mostrar desde el mismo reporte.</small></div><div class="s"><span class="n">04</span><b>Todo es interactivo</b><small>Cada dato es seleccionable y se relaciona con el análisis de lo que muestra cada objeto visual.</small></div><div class="s"><span class="n">05</span><b>Tu opinión suma</b><small>Siempre es buena la retroalimentación: cuéntanos qué mejorar.</small></div></div>
 </div></body></html>
