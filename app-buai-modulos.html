@@ -1,0 +1,84 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Open+Sans:wght@400;700&display=swap">
+<title>Power Apps · BUAI · Módulos</title><style>
+  html,body{margin:0;height:100%;background:#fff;color:#1c1c1c;font-family:"Segoe UI","Selawik","Open Sans",system-ui,sans-serif}
+  body{overflow-x:hidden}
+  .p{box-sizing:border-box;min-height:100%;padding:clamp(12px,2.2vw,20px) clamp(10px,1.5vw,18px);display:flex;flex-direction:column;gap:clamp(12px,2vh,18px)}
+  .mast{display:flex;justify-content:space-between;align-items:center;border-top:3px double #8f8f8f;border-bottom:1px solid #b9b9b9;padding:9px 0;font-size:clamp(10px,1.2vw,13px);font-weight:700;letter-spacing:3px;text-transform:uppercase}
+  .mast span:last-child{font-weight:400;letter-spacing:1px;text-transform:none;color:#6a6a6a}
+  .hero{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:clamp(16px,3vw,40px);align-items:center}
+  .kick{font-family:"Cormorant Garamond",Garamond,Georgia,serif;font-size:15px;letter-spacing:2px;color:#6a6a6a}
+  h1{margin:4px 0 8px;font-weight:700;font-size:clamp(26px,3.6vw,46px);line-height:1.08;display:flex;flex-wrap:wrap;align-items:center;gap:.35em}
+  h1 .t{background:linear-gradient(100deg,#1c1c1c 0%,#1c1c1c 42%,#9d9d9d 47%,#f1f1f1 50%,#9d9d9d 53%,#1c1c1c 58%,#1c1c1c 100%);background-size:260% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:tshine 6s ease-in-out infinite}
+  h1 .tag{font-size:.32em;font-weight:700;letter-spacing:3px;padding:.4em .8em;border-radius:2px;color:#fff;background:#111}
+  @keyframes tshine{0%{background-position:110% 0}60%,100%{background-position:-10% 0}}
+  .line{position:relative;width:200px;height:1.5px;margin:2px 0 10px;background:linear-gradient(90deg,#9a9a9a,#e8e8e8 50%,transparent)}
+  .line::after{content:"";position:absolute;top:-2px;left:0;width:26px;height:5px;border-radius:50%;background:radial-gradient(ellipse at center,#fff 0%,rgba(200,200,200,.8) 35%,rgba(200,200,200,0) 70%);box-shadow:0 0 10px 3px rgba(150,150,150,.35);animation:glint 4.5s ease-in-out infinite}
+  @keyframes glint{0%{left:-20px;opacity:0}12%{opacity:1}55%{left:190px;opacity:1}65%,100%{left:190px;opacity:0}}
+  .how{margin:0;max-width:760px;font-size:clamp(13px,1.2vw,15px);line-height:1.6;color:#3a3a3a}
+  .how b{color:#1c1c1c}
+  .dev{width:clamp(120px,15vw,190px)}
+  .g{display:grid;grid-template-columns:1.15fr 1fr 1fr;border-top:1px solid #9a9a9a}
+  .c{padding:12px clamp(10px,1.4vw,18px) 0;border-right:1px solid #d6d6d6;min-width:0}
+  .c:last-child{border-right:none}
+  .h{font-size:11.5px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:#6a6a6a;margin:0 0 8px;display:flex;align-items:center;gap:8px}
+  .h::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,#c9c9c9,transparent)}
+  ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:7px}
+  li{font-size:12.8px;line-height:1.5;color:#3a3a3a;display:grid;grid-template-columns:auto 1fr;gap:8px}
+  li .r{font-family:"Cormorant Garamond",Garamond,Georgia,serif;font-size:15px;line-height:1.2;min-width:22px;background:linear-gradient(180deg,#bdbdbd,#6f6f6f);-webkit-background-clip:text;background-clip:text;color:transparent;font-weight:600}
+  li b{color:#1c1c1c}
+  li .d{width:5px;height:5px;margin-top:7px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#e9e9e9,#7f7f7f)}
+  .pc{display:flex;flex-direction:column;gap:12px}
+  .pill{display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:2px;padding:3px 8px;border-radius:2px;margin-bottom:6px}
+  .pro{color:#fff;background:#111}.con{color:#3a3a3a;border:1px solid #9a9a9a}
+  .pc p{margin:0;font-size:12.8px;line-height:1.55;color:#3a3a3a}
+  .tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+  .tags span{font-size:12px;padding:4px 9px;border-radius:2px;background:linear-gradient(180deg,#fafafa,#ececec);border:1px solid #cfcfcf}
+  .note{display:flex;align-items:center;gap:12px;padding:10px 14px;border:1px solid #e0e0e0;border-radius:3px;background:#fafafa;font-size:13px;line-height:1.5;color:#3a3a3a}
+  .note b.k{flex:none;font-size:10.5px;font-weight:700;letter-spacing:2px;padding:4px 8px;border-radius:2px;color:#fff;background:#111}
+  @media (max-width:820px){body{overflow-y:auto}.hero{grid-template-columns:1fr}.dev{display:none}.g{grid-template-columns:1fr}.c{border-right:none;border-bottom:1px solid #e3e3e3;padding-bottom:12px}.mast span:last-child{display:none}}
+  .dev{width:clamp(150px,19vw,240px)}
+  .use{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid #9a9a9a}
+  .st{padding:12px clamp(10px,1.4vw,18px) 0;border-right:1px solid #d6d6d6;min-width:0}
+  .st:last-child{border-right:none}
+  .st .n{font-family:"Cormorant Garamond",Garamond,Georgia,serif;font-size:26px;line-height:1;font-weight:600;background:linear-gradient(180deg,#bdbdbd,#6f6f6f);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .st b.t2{display:block;font-size:13.5px;margin:4px 0 6px;color:#1c1c1c}
+  .st p{margin:0 0 6px;font-size:12.8px;line-height:1.5;color:#3a3a3a}
+  .st p i{font-style:normal;font-size:10px;font-weight:700;letter-spacing:2px;color:#6a6a6a;margin-right:4px}
+  .g{grid-template-columns:1.5fr 1fr .75fr}
+  .how,.st p,li > span:last-child,.note > span{text-align:justify;-webkit-hyphens:auto;hyphens:auto}
+  .pc{align-items:center}.pc .h{align-self:stretch}
+  .qrcard{display:block;width:210px;max-width:100%;margin:2px auto 12px;background:#fff;border-radius:16px;overflow:hidden;text-decoration:none;color:#1c1c1c;box-shadow:0 0 0 1px #e3e4e8,0 12px 28px -14px rgba(0,0,0,.45);transition:transform .25s}
+  .qrcard:hover{transform:translateY(-2px)}
+  .qc-top{position:relative;display:flex;align-items:center;gap:11px;padding:14px 16px 13px;background:#121315;color:#fff}
+  .qc-top::after{content:"";position:absolute;left:14px;right:14px;bottom:0;height:1px;background:#8a8a8a}
+  .qc-logo{flex:none;display:flex;align-items:center;justify-content:center;width:38px;height:38px;border:2px solid #fff;border-radius:9px;background:#1f2023;font-family:Georgia,"Times New Roman",serif;font-weight:700;font-size:10.5px;letter-spacing:.3px}
+  .qc-nom b{display:block;font-size:20px;font-weight:600;line-height:1.1}
+  .qc-nom small{display:block;font-size:11px;color:#c4c4c4;margin-top:2px}
+  .qc-qr{display:block;padding:16px 24px 6px}
+  .qc-qr svg{display:block;width:100%;height:auto}
+  .qc-t{display:block;text-align:center;font-size:14.5px;font-weight:600;margin-top:6px}
+  .qc-s{display:block;text-align:center;font-size:11px;color:#555;padding:3px 0 16px}
+  @media (max-width:820px){.g{grid-template-columns:1fr}.use{grid-template-columns:1fr 1fr}.st:nth-child(2){border-right:none}}
+  @media (max-width:480px){.use{grid-template-columns:1fr}.st{border-right:none;border-bottom:1px solid #e3e3e3;padding-bottom:10px}}
+  .how,.st p,li > span:last-child,.note > span,.ini-t{text-align:justify;-webkit-hyphens:auto;hyphens:auto}
+  .h{margin-top:0}
+  .ini{display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:start;padding:12px 16px;border:1px solid #e0e0e0;border-radius:3px;background:#fafafa}
+  .ini .r0{font-family:"Cormorant Garamond",Garamond,Georgia,serif;font-size:40px;line-height:.9;font-weight:600;background:linear-gradient(180deg,#bdbdbd,#6f6f6f);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .ini-t{margin:0;font-size:12.8px;line-height:1.55;color:#3a3a3a}
+  .ini-t b{color:#1c1c1c}
+  .mods{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid #9a9a9a}
+  .mods > div{padding:12px clamp(10px,1.4vw,18px) 0;border-right:1px solid #d6d6d6;min-width:0}
+  .mods > div:first-child{padding-left:0}
+  .mods > div:last-child{border-right:none}
+  .cons{border-top:1px solid #9a9a9a;padding-top:12px}
+  .cons ul{display:block;columns:2;column-gap:clamp(18px,3vw,36px)}
+  .cons li{break-inside:avoid;margin-bottom:7px}
+  @media (max-width:820px){.mods{grid-template-columns:1fr}.mods > div{padding-left:0;border-right:none}.cons ul{columns:1}}
+</style></head><body><div class="p">
+<div class="mast"><span>Universidad Adolfo Ibáñez · Bibliotecas UAI</span><span>Power Apps · BUAI · Módulos</span></div>
+<div class="ini"><span class="r0">0</span><p class="ini-t"><b>Inicio:</b> saludo y fecha; buscador por título, RUT o código, con escáner; modo claro u oscuro; campana con los pendientes de tu área; estantería de módulos (toca un libro y <b>Entrar →</b>); meta del mes, morosos y tu agenda de hoy en Outlook, con <b>Unirse</b> a Teams. Al tocar <b>tu foto</b> se abre el <b>Perfil</b>: Mi día, calendario por semana o mes con reuniones, notas con recordatorio por Teams, accesos a Teams, OneNote y SharePoint, y los avisos que quieres recibir.</p></div>
+<div class="mods"><div><p class="h">Módulos</p><ul><li><span class="r">I</span><span><b>Contador de personas:</b> ocupación por zona, una ronda cada hora (08:00 a 20:00), con + y −.</span></li><li><span class="r">II</span><span><b>Ingreso de material:</b> del ingreso a la estantería: Biblioteca → Área de Adquisición → PPTT, con el recorrido de cada título.</span></li><li><span class="r">III</span><span><b>Generador de marbetes:</b> genera e imprime los marbetes con signatura y código de barras, por código o por lote.</span></li><li><span class="r">IV</span><span><b>Cobranza de morosos:</b> préstamos vencidos con datos de FOLIO y correo de cobro.</span></li></ul></div><div><p class="h">&nbsp;</p><ul><li><span class="r">V</span><span><b>Descarte de títulos:</b> uno o varios códigos, ficha técnica desde FOLIO y decisión final.</span></li><li><span class="r">VI</span><span><b>Préstamos y devoluciones:</b> usuario + libro, con el plazo según la política; devoluciones aparte (módulo de contingencia). En <b>Consultar ejemplar</b> se ve el <b>estado del libro</b>: ejemplares disponibles y prestados por biblioteca, y cuándo vuelve.</span></li><li><span class="r">VII</span><span><b>Inventario y revisión:</b> escanea un estante y compáralo con FOLIO: faltantes y fuera de lugar.</span></li></ul></div></div>
+<div class="cons"><p class="h">Consideraciones</p><ul><li><span class="d"></span><span>Los datos de FOLIO vienen del modelo de Power BI publicado: lo nuevo aparece recién cuando se actualiza y publica.</span></li><li><span class="d"></span><span>La cámara no funciona en el navegador del PC; ahí se usa la pistola o el teclado.</span></li><li><span class="d"></span><span>Los Excel de datos y la carpeta de Marbetes no se mueven ni se renombran, porque la app y los flujos los buscan en su lugar.</span></li><li><span class="d"></span><span>En el celular el Excel de Marbetes se abre (no se descarga), y «Copiar» puede no funcionar.</span></li><li><span class="d"></span><span>Si el texto del teléfono está agrandado, algunas pantallas se ven cortadas.</span></li></ul></div>
+<div class="note"><b class="k">RECOMENDACIÓN</b><span>Usa el <b>PC</b> para el trabajo de fondo (descarte masivo, ingresos, cobranza, marbetes) y el <b>celular</b> para el trabajo en sala (escanear, inventariar, consultar).</span></div>
+</div></body></html>
