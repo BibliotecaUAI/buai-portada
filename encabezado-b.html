@@ -62,6 +62,7 @@
   body.claro .viz{border:none;border-radius:0;background:none;box-shadow:none}
   body.claro .cols{border-top-color:#111}body.claro .cols div{border-right-color:#d6d6d6}
   .tags span{padding:4px 10px!important;font-size:11.5px}
+  body.ancho-fijo .p{max-width:936px;margin:0 auto}
 </style>
 </head>
 <body>
@@ -99,7 +100,7 @@
   if(CLARO)document.body.classList.add('claro');
   var k=(Q.get('area')||'servicios').toLowerCase();if(!AREAS[k])k='servicios';
   var a=AREAS[k];
-  document.getElementById('vol').textContent=a.vol;document.getElementById('tit').textContent=a.t;document.getElementById('desc').textContent=a.d;if(k==='auto'){document.getElementById('desc').classList.add('just');document.querySelector('.cols').style.display='none'}
+  document.getElementById('vol').textContent=a.vol;document.getElementById('tit').textContent=a.t;document.getElementById('desc').textContent=a.d;if(k==='auto'){document.getElementById('desc').classList.add('just');document.body.classList.add('ancho-fijo');document.querySelector('.cols').style.display='none'}
   document.title=a.t+' · Bibliotecas UAI';
   var tg=document.getElementById('tags');a.tags.forEach(function(s){var e=document.createElement('span');e.textContent=s;tg.appendChild(e)});
   var st={};
