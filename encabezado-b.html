@@ -93,13 +93,13 @@
     erec:{vol:'Vol. V',t:'Recursos electrónicos',d:'Mide la cantidad de accesos registrados a través del proxy a los recursos electrónicos suscritos.',tags:['Accesos a bases','Revistas electrónicas','Ebooks']},
     marbetes:{vol:'Vol. VI',t:'Creador de Marbetes',d:'Herramienta para generar los marbetes de la colección a partir de los datos de cada ejemplar.',tags:['Signatura topográfica','Impresión de marbetes']},
     marc:{vol:'Vol. VII',t:'Registros MARC',d:'Detalle de los registros MARC en Folio, para revisar la calidad y consistencia de la catalogación.',tags:['Campos fijos y variables','Posición LDR','Indicadores']},
-    auto:{vol:'Vol. VIII',t:'Power Apps · BUAI',d:'App de Bibliotecas UAI para el trabajo diario en PC y celular: 7 módulos con datos de FOLIO, Power BI y SharePoint.',tags:['Bibliotecas','Dirección','Procesamiento y Metadatos','Difusión','Informática']}
+    auto:{vol:'Vol. VIII',t:'Power Apps · BUAI',d:'Una sola app para el trabajo diario de Bibliotecas UAI, que se adapta sola a la pantalla. En el notebook se abre en el navegador y se usa con la pistola USB; en el smartphone se abre con la app Power Apps y la cámara lee los códigos. Desde el Inicio se entra a los 7 módulos (I a VII), con los mismos datos en ambos equipos.',tags:['Bibliotecas','Dirección','Procesamiento y Metadatos','Difusión','Informática']}
   };
   var Q=new URLSearchParams(location.search),TEMA=(Q.get('tema')||window.TEMA_DEFECTO||'blanco').toLowerCase(),CLARO=TEMA==='blanco';
   if(CLARO)document.body.classList.add('claro');
   var k=(Q.get('area')||'servicios').toLowerCase();if(!AREAS[k])k='servicios';
   var a=AREAS[k];
-  document.getElementById('vol').textContent=a.vol;document.getElementById('tit').textContent=a.t;document.getElementById('desc').textContent=a.d;if(k==='auto')document.getElementById('desc').classList.add('just');
+  document.getElementById('vol').textContent=a.vol;document.getElementById('tit').textContent=a.t;document.getElementById('desc').textContent=a.d;if(k==='auto'){document.getElementById('desc').classList.add('just');document.querySelector('.cols').style.display='none'}
   document.title=a.t+' · Bibliotecas UAI';
   var tg=document.getElementById('tags');a.tags.forEach(function(s){var e=document.createElement('span');e.textContent=s;tg.appendChild(e)});
   var st={};
@@ -197,48 +197,52 @@
     },
     /* VIII · Power Apps: la estantería de la app; cada módulo sale del estante y suma un registro.
        Ventana ancha: los 7 lomos. Ventana angosta (lomo del estante): carrusel de 3 lomos. */
+    /* VIII · Power Apps: notebook y smartphone con la misma app; cada módulo se enciende en ambos y viajan los datos */
     auto:function(x,w,h,t){
       x._own=1;
-      var M=[['I','CONTADOR',128],['II','INGRESOS',4],['III','MARBETES',36],['IV','MOROSOS',12],['V','DESCARTE',2],['VI','PRÉSTAMOS',57],['VII','INVENTARIO',940]];
-      var P=2.6,cyc=t/P,act=Math.floor(cyc)%7,p=cyc%1,narrow=h>w*1.1||w<420;
+      var M=[['I','CONTADOR'],['II','INGRESOS'],['III','MARBETES'],['IV','MOROSOS'],['V','DESCARTE'],['VI','PRÉSTAMOS'],['VII','INVENTARIO']];
+      var P=2.4,cyc=t/P,act=Math.floor(cyc)%7,p=cyc%1;
       function rr(x0,y0,ww,hh,r){x.beginPath();x.moveTo(x0+r,y0);x.arcTo(x0+ww,y0,x0+ww,y0+hh,r);x.arcTo(x0+ww,y0+hh,x0,y0+hh,r);x.arcTo(x0,y0+hh,x0,y0,r);x.arcTo(x0,y0,x0+ww,y0,r);x.closePath()}
-      function spine(i,bx,by,bw,bh,on,al){
-        x.save();x.globalAlpha=al;
-        var g=x.createLinearGradient(bx,0,bx+bw,0);g.addColorStop(0,'#050505');g.addColorStop(.45,on?'#3a3a3d':'#2a2a2d');g.addColorStop(1,'#080808');
-        x.save();if(on){x.shadowColor='rgba(0,0,0,.35)';x.shadowBlur=14;x.shadowOffsetY=6}rr(bx,by,bw,bh,bw*.1);x.fillStyle=g;x.fill();x.restore();
-        x.strokeStyle='rgba(200,200,200,.55)';x.lineWidth=1;
-        [bh*.07,bh*.085,bh*.93,bh*.915].forEach(function(o){x.beginPath();x.moveTo(bx+bw*.14,by+o);x.lineTo(bx+bw*.86,by+o);x.stroke()});
-        x.fillStyle='#fff';x.textAlign='center';
-        x.font='600 '+Math.round(bw*.36)+'px "Cormorant Garamond",Georgia,serif';x.fillText(M[i][0],bx+bw/2,by+bh*.2);
-        x.save();x.translate(bx+bw/2,by+bh*.55);x.rotate(-Math.PI/2);
-        x.font='700 '+Math.max(6,Math.round(bw*.19))+'px "Open Sans","Segoe UI",sans-serif';
-        if('letterSpacing' in x)x.letterSpacing=Math.round(bw*.06)+'px';
-        x.fillText(M[i][1],0,bw*.07);x.restore();if('letterSpacing' in x)x.letterSpacing='0px';
-        var n=M[i][2]+(cyc>=i+.5?Math.floor((cyc-i-.5)/7)+1:0);
-        x.font='700 '+Math.round(bw*.3)+'px "Open Sans","Segoe UI",sans-serif';x.fillText(n,bx+bw/2,by+bh*.86);
-        if(on){x.save();rr(bx,by,bw,bh,bw*.1);x.clip();var gx=bx-bw+p*bw*3,gl=x.createLinearGradient(gx,0,gx+bw*.8,0);
-          gl.addColorStop(0,'rgba(255,255,255,0)');gl.addColorStop(.5,'rgba(255,255,255,.18)');gl.addColorStop(1,'rgba(255,255,255,0)');x.fillStyle=gl;x.fillRect(bx,by,bw,bh);x.restore();
-          if(p>.5&&p<.9){var k=(p-.5)/.4;x.fillStyle='rgba(255,255,255,'+(1-k)+')';x.font='700 '+Math.round(bw*.24)+'px "Open Sans","Segoe UI",sans-serif';x.fillText('+1',bx+bw/2,by+bh*(.76-k*.06))}}
-        x.textAlign='left';x.restore();
-      }
-      function shelf(x0,base,len){var sg=x.createLinearGradient(0,base,0,base+7);sg.addColorStop(0,'#e4e4e6');sg.addColorStop(1,'#f6f6f7');
-        x.fillStyle=sg;x.fillRect(x0,base,len,6);x.fillStyle='rgba(0,0,0,.10)';x.fillRect(x0,base+6,len,1.5)}
+      function metal(x0,x1){var g=x.createLinearGradient(x0,0,x1,0);g.addColorStop(0,'#000');g.addColorStop(.45,'#3a3a3d');g.addColorStop(.6,'#1c1c1c');g.addColorStop(1,'#050505');return g}
+      function glint(x0,y0,ww,hh,ph){x.save();x.beginPath();x.rect(x0,y0,ww,hh);x.clip();var gx=x0-ww*.4+((t*.18+ph)%1.4)*ww*1.4,g=x.createLinearGradient(gx,0,gx+ww*.25,0);
+        g.addColorStop(0,'rgba(255,255,255,0)');g.addColorStop(.5,'rgba(255,255,255,.5)');g.addColorStop(1,'rgba(255,255,255,0)');x.fillStyle=g;x.fillRect(x0,y0,ww,hh);x.restore()}
+      var u=Math.min(w/1.55,h/1.05),cx=w/2-u*.12,cy=h/2;
+      /* notebook: tapa con pantalla y base */
+      var lw=u*1.05,lh=u*.66,lx=cx-lw/2,ly=cy-lh*.62;
+      rr(lx,ly,lw,lh,u*.03);x.fillStyle=metal(lx,lx+lw);x.fill();
+      var sx=lx+u*.035,sy=ly+u*.035,sw=lw-u*.07,sh=lh-u*.07;
+      x.fillStyle='#fafafa';x.fillRect(sx,sy,sw,sh);
+      x.fillStyle='#111';x.fillRect(sx,sy,sw,sh*.13);
+      x.fillStyle='#fff';x.font='700 '+Math.round(sh*.07)+'px "Open Sans","Segoe UI",sans-serif';x.fillText('BUAI',sx+sw*.04,sy+sh*.09);
+      var cols=4,gw=sw*.92/cols,gh=sh*.36,gx0=sx+sw*.04,gy0=sy+sh*.2;
+      for(var i=0;i<7;i++){var c=i%4,r=Math.floor(i/4),tx=gx0+c*gw+gw*.06,ty=gy0+r*(gh+sh*.04),on=i===act,k=on?Math.min(1,p/.15):0;
+        x.fillStyle=on?'rgba(17,17,17,'+(.85+.15*k)+')':'#e6e6e8';rr(tx,ty,gw*.88,gh,u*.012);x.fill();
+        x.fillStyle=on?'#fff':'#6a6a6a';x.textAlign='center';x.font='600 '+Math.round(gh*.3)+'px "Cormorant Garamond",Georgia,serif';x.fillText(M[i][0],tx+gw*.44,ty+gh*.45);
+        x.font='700 '+Math.max(7,Math.round(gh*.13))+'px "Open Sans","Segoe UI",sans-serif';x.fillText(M[i][1],tx+gw*.44,ty+gh*.75);x.textAlign='left'}
+      glint(sx,sy,sw,sh,0);
+      var by=ly+lh;x.beginPath();x.moveTo(lx-u*.08,by+u*.06);x.lineTo(lx+lw+u*.08,by+u*.06);x.lineTo(lx+lw,by);x.lineTo(lx,by);x.closePath();x.fillStyle=metal(lx-u*.08,lx+lw+u*.08);x.fill();
+      x.fillStyle='#3a3a3d';x.fillRect(cx-u*.1,by+u*.005,u*.2,u*.018);
+      x.fillStyle='rgba(0,0,0,.12)';x.fillRect(lx-u*.06,by+u*.065,lw+u*.12,u*.012);
+      /* smartphone */
+      var pw=u*.3,ph=u*.6,px=lx+lw+u*.02,py=by+u*.06-ph;
+      rr(px,py,pw,ph,u*.045);x.fillStyle=metal(px,px+pw);x.fill();
+      var qx=px+u*.018,qy=py+u*.05,qw=pw-u*.036,qh=ph-u*.1;x.fillStyle='#fafafa';x.fillRect(qx,qy,qw,qh);
+      x.fillStyle='#3a3a3d';rr(px+pw*.35,py+u*.018,pw*.3,u*.012,u*.006);x.fill();
+      x.fillStyle='#111';x.fillRect(qx,qy,qw,qh*.12);
+      var k2=Math.min(1,Math.max(0,(p-.35)/.15)),fy=qy+qh*.2;
+      x.fillStyle='rgba(17,17,17,'+(.12+.88*k2)+')';rr(qx+qw*.08,fy,qw*.84,qh*.42,u*.012);x.fill();
+      x.fillStyle='rgba(255,255,255,'+k2+')';x.textAlign='center';x.font='600 '+Math.round(qh*.13)+'px "Cormorant Garamond",Georgia,serif';x.fillText(M[act][0],qx+qw/2,fy+qh*.2);
+      x.font='700 '+Math.max(6,Math.round(qh*.05))+'px "Open Sans","Segoe UI",sans-serif';x.fillText(M[act][1],qx+qw/2,fy+qh*.33);x.textAlign='left';
+      x.fillStyle='#e6e6e8';for(var j=0;j<3;j++){x.fillRect(qx+qw*.08,fy+qh*.48+j*qh*.08,qw*.84*(1-j*.2),qh*.035)}
+      glint(qx,qy,qw,qh,.5);
+      /* datos que viajan del notebook al smartphone */
+      var ax=sx+sw*.98,ay=sy+sh*.55,bx=qx+qw*.5,byy=fy+qh*.2;
+      for(var d=0;d<3;d++){var q=p*1.6-d*.12;if(q<0||q>1)continue;var e=q*q*(3-2*q),dx=ax+(bx-ax)*e,dy=ay+(byy-ay)*e-Math.sin(e*Math.PI)*u*.12;
+        x.fillStyle='rgba(17,17,17,'+Math.sin(q*Math.PI)+')';x.beginPath();x.arc(dx,dy,u*.012,0,7);x.fill()}
       /* nombre del módulo activo */
-      var fa=Math.sin(Math.min(1,p/.15)*Math.PI/2)*(p>.85?(1-p)/.15:1),top=h*.18;
-      x.font='700 '+Math.max(10,Math.round(Math.min(w,h)*(narrow?.07:.045)))+'px "Open Sans","Segoe UI",sans-serif';x.textAlign='center';
-      x.fillStyle='rgba(17,17,17,'+fa+')';x.fillText(M[act][0]+' · '+M[act][1],w/2,top-Math.min(w,h)*.05);x.textAlign='left';
-      if(narrow){
-        var bw=Math.min(w*.3,h*.7/4.4),bh=bw*4.4,gap=bw*.3,base=top+bh+bh*.08,cx=w/2-bw/2;
-        shelf(0,base,w);
-        var s=p<.22?1-Math.pow(1-p/.22,3):1;          /* desliza un puesto hacia la izquierda */
-        for(var k=-2;k<=2;k++){var i=(act+k+7)%7,pos=k+1-s,bx=cx+pos*(bw+gap),on=k===0,
-          lift=on?bh*.06*(p<.2?p/.2:p>.8?(1-p)/.2:1):0,al=Math.max(0,1-Math.max(0,Math.abs(pos)-1)*1.2)*(Math.abs(pos)<.5?1:.75);
-          if(al>0)spine(i,bx,base-bh-lift,bw,bh,on&&s>=1,al)}
-        return;
-      }
-      var bw=Math.min(w*.86/8.2,h*.7/4.4),bh=bw*4.4,gap=bw*.2,tot=7*bw+6*gap,x0=(w-tot)/2,base=top+bh+bh*.08;
-      shelf(x0-bw*.3,base,tot+bw*.6);
-      for(var i=0;i<7;i++){var on=i===act,lift=on?bh*.06*(p<.2?p/.2:p>.8?(1-p)/.2:1):0;spine(i,x0+i*(bw+gap),base-bh-lift,bw,bh,on,1)}
+      var fa=Math.sin(Math.min(1,p/.15)*Math.PI/2)*(p>.85?(1-p)/.15:1);
+      x.font='700 '+Math.max(10,Math.round(u*.055))+'px "Open Sans","Segoe UI",sans-serif';x.textAlign='center';x.fillStyle='rgba(17,17,17,'+fa+')';
+      x.fillText(M[act][0]+' · '+M[act][1],cx,ly-u*.06);x.textAlign='left';
     },
 
   };
