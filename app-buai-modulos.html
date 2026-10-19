@@ -36,7 +36,7 @@
   .tags span{font-size:12px;padding:4px 9px;border-radius:2px;background:linear-gradient(180deg,#fafafa,#ececec);border:1px solid #cfcfcf}
   .note{display:flex;align-items:center;gap:12px;padding:10px 14px;border:1px solid #e0e0e0;border-radius:3px;background:#fafafa;font-size:13px;line-height:1.5;color:#3a3a3a}
   .note b.k{flex:none;font-size:10.5px;font-weight:700;letter-spacing:2px;padding:4px 8px;border-radius:2px;color:#fff;background:#111}
-  @media (max-width:820px){body{overflow-y:auto}.hero{grid-template-columns:1fr}.dev{display:none}.g{grid-template-columns:1fr}.c{border-right:none;border-bottom:1px solid #e3e3e3;padding-bottom:12px}.mast span:last-child{display:none}}
+  @media (max-width:1px){body{overflow-y:auto}.hero{grid-template-columns:1fr}.dev{display:none}.g{grid-template-columns:1fr}.c{border-right:none;border-bottom:1px solid #e3e3e3;padding-bottom:12px}.mast span:last-child{display:none}}
   .dev{width:clamp(150px,19vw,240px)}
   .use{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid #9a9a9a}
   .st{padding:12px clamp(10px,1.4vw,18px) 0;border-right:1px solid #d6d6d6;min-width:0}
@@ -59,7 +59,7 @@
   .qc-qr svg{display:block;width:100%;height:auto}
   .qc-t{display:block;text-align:center;font-size:14.5px;font-weight:600;margin-top:6px}
   .qc-s{display:block;text-align:center;font-size:11px;color:#555;padding:3px 0 16px}
-  @media (max-width:820px){.g{grid-template-columns:1fr}.use{grid-template-columns:1fr 1fr}.st:nth-child(2){border-right:none}}
+  @media (max-width:1px){.g{grid-template-columns:1fr}.use{grid-template-columns:1fr 1fr}.st:nth-child(2){border-right:none}}
   @media (max-width:480px){.use{grid-template-columns:1fr}.st{border-right:none;border-bottom:1px solid #e3e3e3;padding-bottom:10px}}
   .how,.st p,li > span:last-child,.note > span,.ini-t{text-align:justify;-webkit-hyphens:auto;hyphens:auto}
   .h{margin-top:0}
@@ -74,7 +74,7 @@
   .cons{border-top:1px solid #9a9a9a;padding-top:12px}
   .cons ul{display:block;columns:2;column-gap:clamp(18px,3vw,36px)}
   .cons li{break-inside:avoid;margin-bottom:7px}
-  @media (max-width:820px){.mods{grid-template-columns:1fr}.mods > div{padding-left:0;border-right:none}.cons ul{columns:1}}
+  @media (max-width:1px){.mods{grid-template-columns:1fr}.mods > div{padding-left:0;border-right:none}.cons ul{columns:1}}
 
   /* ===== Paleta BUAI · tinta (boceto) ===== */
   html,body{background:#fff;color:#1c1c1c}
@@ -102,4 +102,8 @@
 <div class="mods"><div><p class="h">Módulos</p><ul><li><span class="r">I</span><span><b>Contador de personas:</b> ocupación por zona, una ronda cada hora (08:00 a 20:00), con + y −.</span></li><li><span class="r">II</span><span><b>Ingreso de material:</b> del ingreso a la estantería: Biblioteca → Área de Adquisición → PPTT, con el recorrido de cada título.</span></li><li><span class="r">III</span><span><b>Generador de marbetes:</b> genera e imprime los marbetes con signatura y código de barras, por código o por lote.</span></li><li><span class="r">IV</span><span><b>Cobranza de morosos:</b> préstamos vencidos con datos de FOLIO y correo de cobro.</span></li></ul></div><div><p class="h">&nbsp;</p><ul><li><span class="r">V</span><span><b>Descarte de títulos:</b> uno o varios códigos, ficha técnica desde FOLIO y decisión final.</span></li><li><span class="r">VI</span><span><b>Préstamos y devoluciones:</b> usuario + libro, con el plazo según la política; devoluciones aparte (módulo de contingencia). En <b>Consultar ejemplar</b> se ve el <b>estado del libro</b>: ejemplares disponibles y prestados por biblioteca, y cuándo vuelve.</span></li><li><span class="r">VII</span><span><b>Inventario y revisión:</b> escanea un estante y compáralo con FOLIO: faltantes y fuera de lugar.</span></li></ul></div></div>
 <div class="cons"><p class="h">Consideraciones</p><ul><li><span class="d"></span><span>Los datos de FOLIO vienen del modelo de Power BI publicado: lo nuevo aparece recién cuando se actualiza y publica.</span></li><li><span class="d"></span><span>La cámara no funciona en el navegador del notebook; ahí se usa la pistola o el teclado.</span></li><li><span class="d"></span><span>Los Excel de datos y la carpeta de Marbetes no se mueven ni se renombran, porque la app y los flujos los buscan en su lugar.</span></li><li><span class="d"></span><span>En el smartphone el Excel de Marbetes se abre (no se descarga), y «Copiar» puede no funcionar.</span></li><li><span class="d"></span><span>Si el texto del smartphone está agrandado, algunas pantallas se ven cortadas.</span></li></ul></div>
 
-</div></body></html>
+</div><script>
+/* escala proporcional: se diseña a 1100 px y se amplía o reduce con el ancho de la caja, así el alto calza siempre */
+(function(){var B=1100;function f(){document.documentElement.style.zoom=(window.innerWidth/B).toFixed(4)}f();window.addEventListener('resize',f)})();
+</script>
+</body></html>
